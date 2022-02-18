@@ -13,7 +13,9 @@ const fakeTasks = [
 
 export default function TaskList() {
   const [tasks, setTasks] = useState(fakeTasks);
+
   useEffect(() => {
+    //Get data from API
     fetch("https://much-todo-ck.uc.r.appspot.com/tasks")
       .then((res) => res.json())
       .then((data) => setTasks(data))
