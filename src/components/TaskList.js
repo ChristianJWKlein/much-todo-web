@@ -29,4 +29,14 @@ export default function TaskList() {
       renderItem={(item) => <Task item={item} />}
     />
   );
+  //alt return method to show "Forms" without Library components
+  // return (
+  //   <>
+  //     <ul>
+  //       {tasks?.map((singleTask) => {
+  //         return <li key={singleTask.id}>{singleTask.task}</li>;
+  //       })}
+  //     </ul>
+  //   </>
+  // );
 }
