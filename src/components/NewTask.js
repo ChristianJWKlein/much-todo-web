@@ -5,6 +5,10 @@ export default function NewTask({ setTasks }) {
   const [newTask, setNewTask] = useState("");
 
   const handleButtonSubmit = () => {
+    if (newTask.trim() === "") {
+      //if new task is empty don't do anything
+      return;
+    }
     const taskObject = {
       task: newTask,
     };
@@ -18,6 +22,7 @@ export default function NewTask({ setTasks }) {
       body: JSON.stringify(taskObject),
     })
       .then(() => {
+        setNewTask("");
         fetch("https://much-todo-ck.uc.r.appspot.com/tasks")
           .then((res) => res.json())
           .then((data) => setTasks(data));
@@ -29,16 +34,16 @@ export default function NewTask({ setTasks }) {
     setNewTask(e.target.value);
   };
 
-  console.log(newTask);
-
   return (
     <>
-      <h2>Add New Task</h2>
-      <Input
+      <Input.Search
+        value={newTask}
         placeholder="Enter Task Name"
-        onChange={(e) => handleInputText(e)}
+        enterButton="Add Task"
+        size="large"
+        onSearch={handleButtonSubmit}
+        onChange={handleInputText}
       />
-      <button onClick={handleButtonSubmit}>Send new task to API</button>
     </>
   );
 }
