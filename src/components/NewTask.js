@@ -1,14 +1,13 @@
 import { Input } from "antd";
 import { useState } from "react";
 
-export default function NewTask() {
+export default function NewTask({ setTasks }) {
   const [newTask, setNewTask] = useState("");
 
-  const taskObject = {
-    task: newTask,
-  };
-
   const handleButtonSubmit = () => {
+    const taskObject = {
+      task: newTask,
+    };
     console.log("Sending to API");
 
     fetch("https://much-todo-ck.uc.r.appspot.com/tasks", {
@@ -18,8 +17,11 @@ export default function NewTask() {
       },
       body: JSON.stringify(taskObject),
     })
-      .then((res) => res.json())
-      .then((data) => console.log("data was added", data))
+      .then(() => {
+        fetch("https://much-todo-ck.uc.r.appspot.com/tasks")
+          .then((res) => res.json())
+          .then((data) => setTasks(data));
+      })
       .catch((err) => alert(err));
   };
 
