@@ -15,7 +15,11 @@ export default function TaskList({ tasks, setTasks }) {
     <List
       bordered
       dataSource={tasks}
-      renderItem={(item) => <Task item={item} setTasks={setTasks} />}
+      renderItem={(item) => (
+        <>
+          <Task item={item} setTasks={setTasks} />
+        </>
+      )}
     />
   );
   //alt return method to show "Forms" without Library components
