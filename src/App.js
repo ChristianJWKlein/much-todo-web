@@ -1,14 +1,14 @@
-import { Layout, Menu } from "antd";
-import Main from "./components/Main";
+import { Layout } from 'antd';
+import Main from './components/Main';
 
 const styles = {
   header: {
-    position: "fixed",
+    position: 'fixed',
     zIndex: 10,
-    width: "100%",
-    color: "white",
+    width: '100%',
+    color: 'white',
   },
-  content: { padding: "0 50px", marginTop: 64 },
+  content: { padding: '0 50px', marginTop: 64 },
 };
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
       <Layout.Content style={styles.content}>
         <Main />
       </Layout.Content>
-      <Layout.Footer>&copy; 2022, Boca Code Lake Worth</Layout.Footer>
+      <Layout.Footer>&copy; 2022 Christian Klein</Layout.Footer>
     </Layout>
   );
 }

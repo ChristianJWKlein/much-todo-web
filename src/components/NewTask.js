@@ -1,33 +1,39 @@
-import { Input } from "antd";
-import { useState } from "react";
+import { Input, Button } from 'antd';
+import { useState } from 'react';
 
-export default function NewTask({ setTasks }) {
-  const [newTask, setNewTask] = useState("");
+export default function NewTask({ setNotDoneTasks, setLoading }) {
+  const [newTask, setNewTask] = useState('');
 
   const handleButtonSubmit = () => {
-    if (newTask.trim() === "") {
+    if (newTask.trim() === '') {
       //if new task is empty don't do anything
       return;
     }
+    setLoading(true);
     const taskObject = {
       task: newTask,
     };
-    console.log("Sending to API");
 
-    fetch("https://much-todo-ck.uc.r.appspot.com/tasks", {
-      method: "POST",
+    fetch('https://much-todo-ck.uc.r.appspot.com/tasks', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(taskObject),
     })
       .then(() => {
-        setNewTask("");
-        fetch("https://much-todo-ck.uc.r.appspot.com/tasks")
+        setNewTask('');
+        fetch('https://much-todo-ck.uc.r.appspot.com/tasks')
           .then((res) => res.json())
-          .then((data) => setTasks(data));
+          .then((data) => {
+            setNotDoneTasks(data);
+            setLoading(false);
+          });
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
   };
 
   const handleInputText = (e) => {
@@ -35,15 +41,22 @@ export default function NewTask({ setTasks }) {
   };
 
   return (
-    <>
-      <Input.Search
-        value={newTask}
-        placeholder="Enter Task Name"
-        enterButton="Add Task"
-        size="large"
-        onSearch={handleButtonSubmit}
-        onChange={handleInputText}
-      />
-    </>
+    <section>
+      <Input.Group compact style={{ display: 'flex' }}>
+        <Input
+          value={newTask}
+          placeholder='Enter Task Name'
+          onChange={handleInputText}
+        />
+        <Button
+          className='add-task-btn'
+          type='default'
+          size='large'
+          onSearch={handleButtonSubmit}
+        >
+          Add New Task
+        </Button>
+      </Input.Group>
+    </section>
   );
 }

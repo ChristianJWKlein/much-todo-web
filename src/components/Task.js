@@ -1,43 +1,58 @@
-import { useState, useEffect } from "react";
-import { List, Checkbox } from "antd";
+import { useState, useEffect } from 'react';
+import { List, Checkbox } from 'antd';
 
-export default function Task({ item, setTasks }) {
+export default function Task({
+  item,
+  setDoneTasks,
+  setNotDoneTasks,
+  setLoading,
+}) {
   const [itemStyle, setItemStyle] = useState({});
   useEffect(() => {
     if (item.done) {
-      setItemStyle({ color: "grey", textDecoration: "line-through" });
+      setItemStyle({ color: 'grey', textDecoration: 'line-through' });
     } else {
-      setItemStyle({ color: "black", textDecoration: "none" });
+      setItemStyle({ color: 'black', textDecoration: 'none' });
     }
   }, [item]);
 
   const handleToggleTaskDone = () => {
-    //check if task is done or not
-    //get task id
-    //call api -- patch: `/tasks/${item.id}` send { done: !item.done }
-    //THEN: fetch our tasks
-    //THEN: setTasks(data)
-
+    setLoading(true);
     fetch(`https://much-todo-ck.uc.r.appspot.com/tasks/${item.id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ done: !item.done }),
     })
       .then(() => {
-        fetch("https://much-todo-ck.uc.r.appspot.com/tasks")
-          .then((res) => res.json())
-          .then((data) => setTasks(data));
+        if (item.done) {
+          fetch('https://much-todo-ck.uc.r.appspot.com/tasks/done')
+            .then((res) => res.json())
+            .then((data) => {
+              setDoneTasks(data);
+              setLoading(false);
+            });
+        } else {
+          fetch('https://much-todo-ck.uc.r.appspot.com/tasks/notdone')
+            .then((res) => res.json())
+            .then((data) => {
+              setNotDoneTasks(data);
+              setLoading(false);
+            });
+        }
       })
-      .catch(alert);
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
   };
 
   return (
     <>
       <List.Item style={itemStyle}>
         <Checkbox
-          style={{ margin: "10px" }}
+          style={{ margin: '10px' }}
           onClick={handleToggleTaskDone}
           checked={item.done}
         ></Checkbox>
