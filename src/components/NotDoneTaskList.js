@@ -3,7 +3,7 @@ import { List } from 'antd';
 import Task from './Task';
 
 export default function NotDoneTaskList({
-  notDonetasks,
+  notDoneTasks,
   setNotDoneTasks,
   loading,
   setLoading,
@@ -27,15 +27,13 @@ export default function NotDoneTaskList({
       loading={loading}
       className='task-list'
       bordered
-      dataSource={notDonetasks}
+      dataSource={notDoneTasks}
       renderItem={(item) => (
-        <>
-          <Task
-            item={item}
-            setLoading={setLoading}
-            setTasks={setNotDoneTasks}
-          />
-        </>
+        <Task
+          item={item}
+          setLoading={setLoading}
+          setNotDoneTasks={setNotDoneTasks}
+        />
       )}
     />
   );

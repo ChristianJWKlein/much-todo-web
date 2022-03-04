@@ -8,17 +8,16 @@ export default function DoneTaskList({
   loading,
   setLoading,
 }) {
+  setLoading(false);
+
   useEffect(() => {
-    setLoading(true);
     fetch('https://much-todo-ck.uc.r.appspot.com/tasks/done')
       .then((response) => response.json())
       .then((data) => {
         setDoneTasks(data);
-        setLoading(false);
       })
       .catch((err) => {
         alert(err);
-        setLoading(false);
       });
   }, []);
 
@@ -29,11 +28,7 @@ export default function DoneTaskList({
       bordered
       dataSource={doneTasks}
       renderItem={(item) => (
-        <Task
-          item={item}
-          setLoading={setLoading}
-          setCompletedTasks={setDoneTasks}
-        />
+        <Task item={item} setLoading={setLoading} setDoneTasks={setDoneTasks} />
       )}
     />
   );

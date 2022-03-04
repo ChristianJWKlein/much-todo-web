@@ -26,8 +26,8 @@ export default function NewTask({ setNotDoneTasks, setLoading }) {
         fetch('https://much-todo-ck.uc.r.appspot.com/tasks')
           .then((res) => res.json())
           .then((data) => {
-            setNotDoneTasks(data);
             setLoading(false);
+            setNotDoneTasks(data);
           });
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ export default function NewTask({ setNotDoneTasks, setLoading }) {
       <Input.Group compact style={{ display: 'flex' }}>
         <Input
           value={newTask}
-          placeholder='Enter Task Name'
+          placeholder='Enter New Task'
           onChange={handleInputText}
         />
         <Button
