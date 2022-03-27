@@ -1,10 +1,11 @@
 import { Input, Button } from 'antd';
 import { useState } from 'react';
 
-export default function NewTask({ setNotDoneTasks, setLoading }) {
+export default function NewTask({ setLoading }) {
   const [newTask, setNewTask] = useState('');
 
-  const handleButtonSubmit = () => {
+  const handleButtonSubmit = (e) => {
+    e.preventDefault();
     if (newTask.trim() === '') {
       //if new task is empty don't do anything
       return;
@@ -27,7 +28,7 @@ export default function NewTask({ setNotDoneTasks, setLoading }) {
           .then((res) => res.json())
           .then((data) => {
             setLoading(false);
-            setNotDoneTasks(data);
+            setNewTask(data);
           });
       })
       .catch((err) => {
@@ -52,7 +53,7 @@ export default function NewTask({ setNotDoneTasks, setLoading }) {
           className='add-task-btn'
           type='default'
           size='large'
-          onSearch={handleButtonSubmit}
+          onClick={handleButtonSubmit}
         >
           Add New Task
         </Button>

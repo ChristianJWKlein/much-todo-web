@@ -20,7 +20,7 @@ export default function NotDoneTaskList({
         alert(err);
         setLoading(false);
       });
-  }, []);
+  }, [setNotDoneTasks]);
 
   return (
     <List

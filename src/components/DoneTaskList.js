@@ -19,7 +19,7 @@ export default function DoneTaskList({
       .catch((err) => {
         alert(err);
       });
-  }, []);
+  }, [setDoneTasks]);
 
   return (
     <List
