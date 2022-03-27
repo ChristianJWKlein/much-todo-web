@@ -4,7 +4,7 @@ This is the web side of the application. It hits the API we made to add or show 
 
 ## Link to site
 
-https://much-todo-ck.firebaseapp.com/
+https://much-todo-ck.web.app/
 
 ## To Deploy
 
