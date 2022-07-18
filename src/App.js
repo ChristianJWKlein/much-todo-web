@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import Main from './components/Main';
+import { Layout } from 'antd'
+import Main from './components/Main'
 
 const styles = {
   header: {
@@ -9,7 +9,7 @@ const styles = {
     color: 'white',
   },
   content: { padding: '0 50px', marginTop: 64 },
-};
+}
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       </Layout.Content>
       <Layout.Footer>&copy; 2022 Christian Klein</Layout.Footer>
     </Layout>
-  );
+  )
 }
 
-export default App;
+export default App
